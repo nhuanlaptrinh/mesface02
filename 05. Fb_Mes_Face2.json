@@ -1,0 +1,449 @@
+{
+  "name": "05. Fb_Mes_Facebook_Tro_LyA.ICNH",
+  "nodes": [
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "path": "dat11",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        480
+      ],
+      "id": "376476e4-540e-4137-8dfb-a8450aca804f",
+      "name": "Webhook",
+      "webhookId": "ef9cdeb8-de6b-4c33-9bc0-ef5d3c004a20"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query['hub.challenge'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        272
+      ],
+      "id": "e9118e0e-bf7c-4ada-9cac-62f64e25e041",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "=Dưới đây là prompt hoàn chỉnh được đập đi xây lại hoàn toàn theo chủ đề Thời trang nam — chuyên tư vấn, chốt đơn, và gửi link sản phẩm thời trang (ví dụ Tiki).\nAnh có thể copy nguyên văn prompt này vào n8n, ChatGPT hoặc Bot để triển khai nhé 👇\n\n🧥 PROMPT CHO TRỢ LÝ AI THỜI TRANG NAM\n🧠 Vai trò và phạm vi chung\n\nBạn là nhân viên AI tư vấn bán hàng chuyên nghiệp của Cửa hàng Thời Trang Nam Cao Cấp Đức Huy, chuyên các sản phẩm:\n\nÁo sơ mi nam dài tay, ngắn tay\n\nÁo sơ mi công sở, dự tiệc, đi chơi\n\nÁo sơ mi Việt Tiến, Owen, Khatoco\n\nÁo sơ mi trắng, caro, phối màu, cổ trụ, kaki\n\nBạn sẽ tư vấn, giới thiệu sản phẩm, gửi link mua hàng, hỗ trợ chốt đơn hàng và tư vấn phối đồ cho khách.\n\n💬 Quy định giao tiếp\n\nLuôn xưng là em, bên em, không được xưng tôi hay chúng tôi.\n\nNếu khách hàng nhắn bằng ngôn ngữ nào (Việt, Anh, v.v.) thì phải tự động trả lời bằng ngôn ngữ đó.\n\nLuôn trả lời ngắn gọn, thân thiện, chuyên nghiệp và tự nhiên như nhân viên tư vấn thật.\n\n📦 Dữ liệu sản phẩm : Bắt Buộc Phải lấy từ GG Sheet\n\n👕 Cách trả lời khi khách hỏi\n\nNếu khách hỏi “áo sơ mi nam”, “áo sơ mi trắng”, “áo Việt Tiến”, “áo Owen”, “áo caro”...\n→ Gửi ngay link tương ứng trong danh sách ở trên.\nVí dụ:\n\nDạ bên em có mẫu áo sơ mi nam tay dài đang được ưa chuộng nhất ạ 👉 Xem tại đây\n\nNếu khách hỏi “phối đồ”, “áo này mặc với quần gì”\n→ Trả lời gợi ý phong cách:\n\nDạ áo sơ mi trắng thì mình phối với quần tây đen hoặc quần kaki sáng màu đều rất sang ạ.\nNếu anh thích phong cách trẻ trung thì có thể chọn áo sơ mi caro phối với quần jean xanh nhé!\n\n🛍️ Cách chốt sale\n\nNếu khách nói “muốn mua”, “cho xem thêm”, “đặt hàng”, bạn hỏi:\n\nDạ anh/chị cho em xin số điện thoại để em hỗ trợ giao hàng nhé.\n\nSau khi khách gửi số điện thoại:\n\nDạ cho em xin địa chỉ nhận hàng với ạ.\n\nSau khi khách gửi địa chỉ:\n\nDạ anh/chị muốn đặt mấy cái áo ạ?\n\nSau khi đủ thông tin:\n\nDạ em ghi nhận đơn hàng rồi ạ:\n\nSản phẩm: …\n\nSố lượng: …\n\nĐịa chỉ: …\n\nSố điện thoại: …\nBên em sẽ giao hàng trong 24h nội thành, hoặc 2–3 ngày tỉnh khác nha anh/chị!\n\n📞 Thông tin cửa hàng\n\nCửa hàng Thời Trang Nam Đức Huy\nĐịa chỉ: 26/46/2A, đường số 7, P3, Gò Vấp\nHotline: 0378 79 39 69 - 0978 16 94 96\nEmail: thoitrangnam.duchuy@gmail.com\n\nGiờ làm việc: 8h – 20h (cả T7 & CN)\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        640,
+        464
+      ],
+      "id": "3cd26508-4275-4524-bf1e-527b325fdb0b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        544,
+        704
+      ],
+      "id": "4016979c-40b3-43ec-959f-3540e3dc4876",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "GalKRUKkED3gQn2t",
+          "name": "OpenAi account 9"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "EVENT_RECEIVED",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        672
+      ],
+      "id": "384d652d-bc2a-44b6-a6e5-378ab27a152a",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5ce58185-b3cd-46ef-9241-1652912c8beb",
+              "name": "senderID",
+              "value": "={{ $json.body.entry[0].messaging[0].sender.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2324a350-a471-41c3-8a48-17bf25c5719b",
+              "name": "text",
+              "value": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "10ba858d-9218-4e06-bc8f-eed8d09f9f9c",
+              "name": "recipientID",
+              "value": "={{ $json.body.entry[0].messaging[0].recipient.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        464
+      ],
+      "id": "b1867be4-eeeb-4959-8622-5f03fdb29ef8",
+      "name": "User Information"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1EGtk-KMTCQvgj5byWgtPgrE9URyVZOI5gFQPEvzdh7Y",
+          "mode": "list",
+          "cachedResultName": "Men-Fashion",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EGtk-KMTCQvgj5byWgtPgrE9URyVZOI5gFQPEvzdh7Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1009733483,
+          "mode": "list",
+          "cachedResultName": "product",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EGtk-KMTCQvgj5byWgtPgrE9URyVZOI5gFQPEvzdh7Y/edit#gid=1009733483"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        976,
+        688
+      ],
+      "id": "b4ffe6a9-a878-4665-86f4-d48654a1e9ac",
+      "name": "Product",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "X1LPRzEIroSbLK5Q",
+          "name": "Google Sheets account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6d350a9b-c6db-4ed5-ba68-a7cc19ccb696",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "\"\"",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        464
+      ],
+      "id": "9b8c4250-b514-4981-8a04-816d057dca3b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.senderID }}",
+        "contextWindowLength": 100
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        752,
+        704
+      ],
+      "id": "4b365fb4-bf77-4840-8a4f-33dee78dcf0d",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v24.0/me/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer EAAQcinx4mAUBPsbUbRZC9m3OWIyZBUsa8ktIRVZB7Hivax1BodSgTffWZBO0EQbkvruEZBpRPCCp0StFyeNkIyhBynwlknV96Ci5UuNZAyYoM8WrgLcLymGx8uU7xzxzWZCrEmRchojqWM4xVdUtvkXbwV0KZAzSUU2pOB6qXOVZAAJe7KUyBmFn3iigRG3npkljbJtubwIFHYZAzDTvPIK92GXqJyPgZDZD"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"recipient\": {\n    \"id\": \"{{ $('User Information').item.json.senderID }}\"\n  },\n  \"messaging_type\": \"RESPONSE\",\n  \"message\": {\n    \"text\": \"{{ $json.text }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1792,
+        480
+      ],
+      "id": "d0cfc41e-71df-42eb-b60d-cc61267fb82c",
+      "name": "Send Text Messenger"
+    },
+    {
+      "parameters": {
+        "jsCode": "let data = $input.first().json.output || '';\n\nconst imageRegex = /!\\[[^\\]]*\\]\\((https?:\\/\\/[^\\)]+)\\)/g;\nconst attachments = [];\nlet match;\n\n// Lặp qua tất cả hình ảnh\nwhile ((match = imageRegex.exec(data)) !== null) {\n  attachments.push({\n    type: 'image',\n    payload: { url: match[1] }\n  });\n}\n\n// Xóa phần markdown ![mô tả ảnh], giữ lại URL\nlet text = data.replace(imageRegex, '$1').trim();\n\n// Dọn lại text\ntext = text.replace(/\\\\/g, '\\\\\\\\'); // Thoát dấu \\\ntext = text.replace(/\"/g, '\\\\\"');   // Thoát dấu \"\ntext = text.replace(/\\n/g, '\\\\n');  // Thoát ký tự xuống dòng\n\nreturn {\n  text,\n  attachments\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1552,
+        480
+      ],
+      "id": "d8fd8b44-f6f8-4a5e-a884-13eb5ae2bfc8",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "27acfa4c-77dd-4a74-8013-254545e52bdd",
+              "leftValue": "={{ $('Code in JavaScript').item.json.attachments[0].payload.url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2112,
+        480
+      ],
+      "id": "f47463c9-aed0-4489-ac68-a9af39cf839c",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v24.0/me/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "facebookGraphApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"recipient\": {\n    \"id\":\"{{ $('User Information').item.json.senderID }}\"\n  },\n  \"message\": {\n    \"attachments\":\n   {{JSON.stringify($('Code in JavaScript').item.json.attachments)}}\n  }\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2480,
+        480
+      ],
+      "id": "bf896537-7278-41fe-be5d-075a696d5592",
+      "name": "Send Photo Messenger",
+      "alwaysOutputData": true,
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "97NmIvAhqebCBe0o",
+          "name": "messenger"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "User Information",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Information": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Product": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Text Messenger": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send Text Messenger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Send Photo Messenger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c46b7ecb-6469-4e72-a83f-56b1779fe304",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "94a383c02457267bcc44878635a0fa02b7d3206c5479bfc8890faa812e2bbd97"
+  },
+  "id": "KgGRpIyTnBhlYMHT",
+  "tags": []
+}
